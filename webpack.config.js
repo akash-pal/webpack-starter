@@ -29,7 +29,21 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', //3. Inject styles into DOM
+        {
+          loader: "css-loader",  //2. Turns css into commonjs
+          options: {
+            modules: {
+              mode : 'global'
+            },
+            importLoaders: 1,
+            // 0 => no loaders (default);
+            // 1 => postcss-loader;
+            // 2 => postcss-loader, sass-loader
+          },
+        },
+        'sass-loader' //1. Turns sass into css
+        ],
       },
       {
         test: /\.js$/,
